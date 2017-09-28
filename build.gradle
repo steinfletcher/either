@@ -1,0 +1,42 @@
+buildscript {
+    dependencies {
+        classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.11'
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+
+group 'com.steinf'
+version = "1.0.0"
+
+apply plugin: 'java'
+apply plugin: 'info.solidsoft.pitest'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+
+pitest {
+    coverageThreshold = 85
+    mutationThreshold = 30
+    timestampedReports = false
+    threads = 2
+}
+
+jar {
+    baseName = 'either'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.8.0'
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
