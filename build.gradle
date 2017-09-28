@@ -1,31 +1,13 @@
-buildscript {
-    dependencies {
-        classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.11'
-    }
-    repositories {
-        mavenCentral()
-    }
-}
-
 group 'com.steinf'
 version = "1.0.0"
 
 apply plugin: 'java'
-apply plugin: 'info.solidsoft.pitest'
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 sourceCompatibility = 1.8
 
-pitest {
-    coverageThreshold = 85
-    mutationThreshold = 30
-    timestampedReports = false
-    threads = 2
-}
-
-jar {
-    baseName = 'either'
-}
+archivesBaseName = "either"
 
 repositories {
     mavenCentral()
@@ -39,4 +21,57 @@ dependencies {
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: findProperty('ossrhUsername'), password: findProperty('ossrhPassword'))
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: findProperty('ossrhUsername'), password: findProperty('ossrhPassword'))
+            }
+
+            pom.project {
+                name 'Either'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'An Either data type for java'
+                url 'https://github.com/steinfletcher/either'
+
+                scm {
+                    connection 'git@github.com:steinfletcher/either.git'
+                    developerConnection 'git@github.com:steinfletcher/either.git'
+                    url 'https://github.com/steinfletcher/either'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'steinfletcher'
+                        name 'Stein Fletcher'
+                        email 'steinfletcher@gmail.com'
+                    }
+                }
+            }
+        }
+    }
 }

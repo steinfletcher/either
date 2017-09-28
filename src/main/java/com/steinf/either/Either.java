@@ -16,6 +16,18 @@ import java.util.function.Supplier;
 public interface Either<L, R> extends Serializable {
 
   /**
+   * Creates a right biased either instance. Only evaluates the left supplier if the right side is null
+   */
+  static <L, R> Either<L, R> either(Supplier<L> leftSupplier, Supplier<R> rightSupplier) {
+    R r = rightSupplier.get();
+    if (r != null) {
+      return Either.right(r);
+    } else {
+      return Either.left(leftSupplier.get());
+    }
+  }
+
+  /**
    * Creates a left instance
    *
    * @param value the failure value
@@ -162,12 +174,11 @@ public interface Either<L, R> extends Serializable {
    * @return an optional wrapping the right value
    */
   static <L, R> Either<L, R> fromOptional(Optional<R> optional) {
-     return optional.<Either<L, R>>map(Either::right).orElseGet(() -> Either.left(null));
+    return optional.<Either<L, R>>map(Either::right).orElseGet(() -> Either.left(null));
   }
 
   /**
-   * Creates an either from a java optional. Takes the left side from the supplier
-   * if the optional is empty.
+   * Creates an either from a java optional. Takes the left side from the supplier if the optional is empty.
    *
    * @return an optional wrapping the right value
    */

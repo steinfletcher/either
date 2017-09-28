@@ -33,6 +33,20 @@ public class EitherTest {
   }
 
   @Test
+  public void createsARightFromSupplier() throws Exception {
+    Either<Integer, String> either = Either.either(() -> 2, () -> "hi");
+
+    assertThat(either.right()).isEqualTo("hi");
+  }
+
+  @Test
+  public void createsALeftFromSupplier() throws Exception {
+    Either<Integer, String> either = Either.either(() -> 2, () -> null);
+
+    assertThat(either.left()).isEqualTo(2);
+  }
+
+  @Test
   public void foldsRight() {
     Either<Boolean, String> either = Either.right("right");
 
