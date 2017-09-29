@@ -12,14 +12,14 @@ of this as a more powerful alternative to `Optional`.
 
 Gradle
 
-    compile 'com.steinf:either:1.0.1'
+    compile 'com.steinf:either:1.0.2'
 
 Maven
 
     <dependency>
         <groupId>com.steinf</groupId>
         <artifactId>either</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </dependency>
 
 ## Examples
