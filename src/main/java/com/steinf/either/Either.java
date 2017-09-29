@@ -101,7 +101,7 @@ public interface Either<L, R> extends Serializable {
   }
 
   /**
-   * Alias for {@link this#flatMap(Function)}
+   * Alias for flatMap
    */
   default <U> Either<L, U> andThen(final Function<? super R, Either<L, U>> mapper) {
     return flatMap(mapper);

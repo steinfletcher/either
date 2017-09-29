@@ -1,9 +1,19 @@
+buildscript {
+    dependencies {
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.8.0"
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+
 group 'com.steinf'
 version = "1.0.0"
 
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: 'io.codearte.nexus-staging'
 
 sourceCompatibility = 1.8
 
@@ -18,13 +28,18 @@ dependencies {
     testCompile 'org.assertj:assertj-core:3.8.0'
 }
 
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
 artifacts {
-    archives sourcesJar
+    archives javadocJar, sourcesJar
 }
 
 signing {
