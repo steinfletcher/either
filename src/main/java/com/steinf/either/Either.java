@@ -33,7 +33,6 @@ public interface Either<L, R> extends Serializable {
    * @param value the failure value
    * @param <L> the type of the success object
    * @return a service outcome containing a failure object
-   * @throws NullPointerException if {@code value} is null
    */
   static <L, R> Either<L, R> left(L value) {
     return new Left<>(value);
@@ -45,7 +44,6 @@ public interface Either<L, R> extends Serializable {
    * @param value the success value
    * @param <R> the type of the right object
    * @return a service outcome containing a success object
-   * @throws NullPointerException if {@code value} is null
    */
   static <L, R> Either<L, R> right(R value) {
     return new Right<>(value);
@@ -190,7 +188,7 @@ public interface Either<L, R> extends Serializable {
    * Gets the value of success
    *
    * @return the value stored in success
-   * @throws UnsupportedOperationException if no such value is present
+   * @throws NoSuchElementException if no such value is present
    */
   R right();
 
@@ -198,7 +196,7 @@ public interface Either<L, R> extends Serializable {
    * Gets the value of the failure
    *
    * @return the value stored in the failure
-   * @throws UnsupportedOperationException if no such value is present
+   * @throws NoSuchElementException if no such value is present
    */
   L left();
 
