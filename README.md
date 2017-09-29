@@ -65,10 +65,10 @@ Either.right("right")
 `fold` an either into a value
 ```Java
 Either.right("right")
-      .fold(f -> "left", f -> f + " side"); // == Either.right("right side")
+      .fold(f -> "left", f -> f + " side"); // == "right side"
 
 Either.left("left")
-      .fold(f -> f + " side", f -> "right"); // == Either.left("left side")
+      .fold(f -> f + " side", f -> "right"); // == "left side"
 ```
 
 `accept` an either
