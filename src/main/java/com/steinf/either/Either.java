@@ -137,11 +137,25 @@ public interface Either<L, R> extends Serializable {
    * @return the value, if present, otherwise {@code other}
    * @throws NullPointerException if other is null
    */
-  default Either<L, R> orElse(Supplier<Either<L, R>> other) {
+  default R orElseGet(Supplier<R> other) {
     if (isRight()) {
-      return this;
+      return this.right();
     } else {
       return other.get();
+    }
+  }
+
+  /**
+   * Return the success value if present, otherwise return {@code other}.
+   *
+   * @param other the value to be returned if there is no success value present
+   * @return the value, if present, otherwise {@code other}
+   */
+  default R orElse(R other) {
+    if (isRight()) {
+      return this.right();
+    } else {
+      return other;
     }
   }
 

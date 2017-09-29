@@ -160,18 +160,36 @@ public class EitherTest {
   public void returnsOtherIfRightAbsentUsingOrElse() throws Exception {
     Either<Boolean, String> left = Either.left(FALSE);
 
-    Either<Boolean, String> other = left.orElse(() -> Either.right("new right"));
+    String other = left.orElse("new right");
 
-    assertThat(other.right()).isEqualTo("new right");
+    assertThat(other).isEqualTo("new right");
+  }
+
+  @Test
+  public void returnsOtherIfRightAbsentUsingOrElseGet() throws Exception {
+    Either<Boolean, String> left = Either.left(FALSE);
+
+    String other = left.orElseGet(() -> "new right");
+
+    assertThat(other).isEqualTo("new right");
   }
 
   @Test
   public void returnsSelfIfRightUsingOrElse() throws Exception {
     Either<Boolean, String> success = Either.right("right");
 
-    Either<Boolean, String> other = success.orElse(() -> Either.right("new right"));
+    String other = success.orElse("new right");
 
-    assertThat(other.right()).isEqualTo("right");
+    assertThat(other).isEqualTo("right");
+  }
+
+  @Test
+  public void returnsSelfIfRightUsingOrElseGet() throws Exception {
+    Either<Boolean, String> success = Either.right("right");
+
+    String other = success.orElseGet(() -> "new right");
+
+    assertThat(other).isEqualTo("right");
   }
 
   @Test
