@@ -5,3 +5,17 @@
 [![codecov](https://codecov.io/gh/steinfletcher/either/branch/master/graph/badge.svg)](https://codecov.io/gh/steinfletcher/either)
 
 A simple algebraic data type for java
+
+## Artifacts
+
+Gradle
+
+    compile 'com.steinf:either:1.0.1'
+
+Maven
+
+    <dependency>
+        <groupId>com.steinf</groupId>
+        <artifactId>either</artifactId>
+        <version>1.0.1</version>
+    </dependency>
