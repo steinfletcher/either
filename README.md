@@ -6,7 +6,7 @@
 
 A simple algebraic data type for java. An Either is commonly used to represent a result that might fail,
 where the left side contains the error result and the right side contains the success result. You can think
-of this as a more powerful alternative to `Optional`.
+of this as a more powerful alternative to `Optional`. Plays nicely with Java 8 types.
 
 ## Artifacts
 
@@ -92,10 +92,10 @@ Either.right(10);
 Extract the value `orElseGet` get the provided value if Left
 ```Java
 Either.left(FALSE);
-      .orElse(() -> "right");  // == "right"
+      .orElseGet(() -> "right");  // == "right"
 
 Either.right(10);
-      .orElse(() -> 99);  // == 10
+      .orElseGet(() -> 99);  // == 10
 ```
 
 Extract the value `orElseThrow` if Left
