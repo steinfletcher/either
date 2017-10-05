@@ -12,14 +12,14 @@ of this as a more powerful alternative to `Optional`. Plays nicely with Java 8 t
 
 Gradle
 
-    compile 'com.steinf:either:1.0.2'
+    compile 'com.steinf:either:1.0.3'
 
 Maven
 
     <dependency>
         <groupId>com.steinf</groupId>
         <artifactId>either</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
     </dependency>
 
 ## Examples
@@ -105,6 +105,18 @@ Either.left(FALSE);
 
 Either.right(100);
       .orElseThrow(() -> new RuntimeException("Errr"));  // == 100
+```
+
+Filter the right side `values` from a stream
+```Java
+Stream<Either<String, String>> eithers = Stream.of(
+    Either.left("1"),
+    Either.right("2"),
+    Either.right("3"));
+
+eithers
+    .flatMap(Either.values())
+    .collect(toList()); // == [2, 3]
 ```
 
 Convert `toOptional`

@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * An algebraic data type representing the outcome of an operation that might fail
@@ -25,6 +26,15 @@ public interface Either<L, R> extends Serializable {
     } else {
       return Either.left(leftSupplier.get());
     }
+  }
+
+  /**
+   * Function that can be used to preserve only the right values.
+   *
+   * @return a new stream with only the right values
+   */
+  static <L, R> Function<Either<L, R>, Stream<R>> values() {
+    return either -> either.map(Stream::of).orElseGet(Stream::empty);
   }
 
   /**

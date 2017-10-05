@@ -2,12 +2,15 @@ package com.steinf.either;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.junit.Test;
 
 public class EitherTest {
@@ -199,6 +202,17 @@ public class EitherTest {
     String value = either.orElseThrow(() -> new RuntimeException("Err"));
 
     assertThat(value).isEqualTo("right");
+  }
+
+  @Test
+  public void filtersOutLeftSides() {
+    Stream<Either<String, String>> eithers = Stream.of(Either.left("1"), Either.right("2"), Either.right("3"));
+
+    List<String> values = eithers
+        .flatMap(Either.values())
+        .collect(toList());
+
+    assertThat(values).containsOnly("2", "3");
   }
 
   @Test
