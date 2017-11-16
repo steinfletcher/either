@@ -12,14 +12,14 @@ of this as a more powerful alternative to `Optional`. Plays nicely with Java 8 t
 
 Gradle
 
-    compile 'com.steinf:either:1.0.3'
+    compile 'com.steinf:either:1.0.4'
 
 Maven
 
     <dependency>
         <groupId>com.steinf</groupId>
         <artifactId>either</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
     </dependency>
 
 ## Examples
@@ -36,12 +36,12 @@ Either<String, Integer> e = Either.fromOptionalOrElse(Optional.empty(), () -> "F
 Extract the `right` or `left` value
 ```Java
 Either<String, Integer> e = Either.right(20);
-e.right() // == 20
-e.left() // throws NoSuchElementException
+e.getRight() // == 20
+e.getLeft() // throws NoSuchElementException
 
 Either<String, Integer> e = Either.left(20);
-e.left() // == 20
-e.right() // throws NoSuchElementException
+e.getLeft() // == 20
+e.getRight() // throws NoSuchElementException
 ```
 
 Check whether the either `isLeft` or `isRight`

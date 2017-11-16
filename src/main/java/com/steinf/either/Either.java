@@ -211,18 +211,22 @@ public interface Either<L, R> extends Serializable {
   /**
    * Gets the value of success
    *
+   * @deprecated Use {@link #getRight} instead
    * @return the value stored in success
    * @throws NoSuchElementException if no such value is present
    */
   R right();
+  R getRight();
 
   /**
    * Gets the value of the failure
    *
+   * @deprecated Use {@link #getLeft} instead
    * @return the value stored in the failure
    * @throws NoSuchElementException if no such value is present
    */
   L left();
+  L getLeft();
 
   /**
    * @return true on success, false on failure
@@ -253,8 +257,18 @@ public interface Either<L, R> extends Serializable {
     }
 
     @Override
+    public R getRight() {
+      return value;
+    }
+
+    @Override
     public L left() {
       throw new NoSuchElementException("No left value present");
+    }
+
+    @Override
+    public L getLeft() {
+      return null;
     }
 
     @Override
@@ -283,11 +297,21 @@ public interface Either<L, R> extends Serializable {
 
     @Override
     public R right() {
+      return getRight();
+    }
+
+    @Override
+    public R getRight() {
       throw new NoSuchElementException("No right value present");
     }
 
     @Override
     public L left() {
+      return value;
+    }
+
+    @Override
+    public L getLeft() {
       return value;
     }
 

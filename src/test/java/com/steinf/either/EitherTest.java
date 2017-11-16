@@ -19,7 +19,7 @@ public class EitherTest {
   public void createsARight() {
     Either<Boolean, Integer> either = Either.right(2);
 
-    assertThat(either.right()).isEqualTo(2);
+    assertThat(either.getRight()).isEqualTo(2);
     assertThat(either.isRight()).isTrue();
     assertThat(either.isLeft()).isFalse();
     assertLeftSideAbsent(either);
@@ -29,7 +29,7 @@ public class EitherTest {
   public void createsALeft() {
     Either<Boolean, Integer> either = Either.left(TRUE);
 
-    assertThat(either.left()).isEqualTo(TRUE);
+    assertThat(either.getLeft()).isEqualTo(TRUE);
     assertThat(either.isRight()).isFalse();
     assertThat(either.isLeft()).isTrue();
     assertRightSideAbsent(either);
@@ -39,6 +39,7 @@ public class EitherTest {
   public void createsARightFromSupplier() throws Exception {
     Either<Integer, String> either = Either.either(() -> 2, () -> "hi");
 
+    assertThat(either.getRight()).isEqualTo("hi");
     assertThat(either.right()).isEqualTo("hi");
   }
 
@@ -46,6 +47,7 @@ public class EitherTest {
   public void createsALeftFromSupplier() throws Exception {
     Either<Integer, String> either = Either.either(() -> 2, () -> null);
 
+    assertThat(either.getLeft()).isEqualTo(2);
     assertThat(either.left()).isEqualTo(2);
   }
 
@@ -82,7 +84,7 @@ public class EitherTest {
 
     Either<String, Integer> mapped = either.map(value -> 10);
 
-    assertThat(mapped.left()).isEqualTo("left");
+    assertThat(mapped.getLeft()).isEqualTo("left");
   }
 
   @Test
